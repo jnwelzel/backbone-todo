@@ -20,17 +20,25 @@
     <![endif]-->
 
 
-    <div class="container">
-      <div id="create-todo">
-        <input id="new-todo" placeholder="What needs to be done?" type="text" />
-        <span class="ui-tooltip-top" style="display:none;">Press Enter to save this task</span>
-      </div>
-
-      <div id="todos">
+    <section id="todoapp" class="container">
+      <header id="header" class="row">
+        <h1>TODOS<small> or <i class="text-success">not</i> todos</small></h1>
+        <div class="form-group col-md-4">
+          <input id="new-todo" class="form-control" placeholder="What needs to be done?" autofocus>
+        </div>
+      </header>
+      <section id="main" class="row">
+        <div class="form-group col-md-4">
+          <input id="toggle-all" type="checkbox">
+          <label for="toggle-all">Mark all as complete</label>
+        </div>
         <ul id="todo-list"></ul>
-      </div>
-
-      <div id="todo-stats"></div>
+      </section>
+      <footer id="footer">footer</footer>
+    </section>
+    <div id="info" class="container">
+      <p>Double-click to edit a todo</p>
+      <p>Bullshitlessly brought to you by <a href="http://inkdroplabs.com">Inkdrop Labs</a> ;)</p>
     </div>
 
 

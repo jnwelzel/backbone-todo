@@ -1,16 +1,13 @@
 'use strict';
 
 class BackboneTodo.Models.Todo extends Backbone.Model
-  url: '',
 
-  initialize: () ->
-
-  defaults: {
-    'completed': false,
+  defaults:
+    'completed': false
     'title': ''
-  }
 
-  validate: (attrs, options) ->
-
-  parse: (response, options) ->
-    response
+  # Toggle the `completed` state of this todo item.
+  toggle: ->
+    @save
+      completed: !@get 'completed'
+  return
