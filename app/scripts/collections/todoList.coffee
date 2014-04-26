@@ -4,12 +4,12 @@ class BackboneTodo.Collections.TodoList extends Backbone.Collection
 
   localStorage: new Backbone.LocalStorage('backbone-todos')
 
-  done: ->
-    @where {completed: true}
+  completed: ->
+    @where completed: true
     return
 
   remaining: ->
-    @where {completed: false}
+    @where completed: false
     return
 
   nextOrder: ->
@@ -17,4 +17,6 @@ class BackboneTodo.Collections.TodoList extends Backbone.Collection
       return 1
     return @last().get('order') + 1
 
-  comparator: 'order'
+  # Todos are sorted by their original insertion order.
+  comparator: (todo) ->
+    todo.get 'order'
