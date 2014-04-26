@@ -4,10 +4,6 @@ class BackboneTodo.Views.Todo extends Backbone.View
 
   tagName: 'li'
 
-  id: ''
-
-  className: ''
-
   events:
     'click .toggle'   : 'toggleDone'
     'dblclick .view'  : 'edit'
@@ -15,12 +11,12 @@ class BackboneTodo.Views.Todo extends Backbone.View
     'keypress .edit'  : 'updateOnEnter'
     'blur .edit'      : 'close'
 
-  initialize: () ->
+  initialize: ->
     @listenTo @model, 'change', @render
     @listenTo @model, 'destroy', @remove
     return
 
-  render: () ->
+  render: ->
     @$el.html @template(@model.toJSON())
     @$el.toggleClass 'done', @get 'done'
     @input = @$ '.edit'

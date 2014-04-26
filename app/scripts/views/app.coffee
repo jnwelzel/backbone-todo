@@ -60,7 +60,7 @@ class BackboneTodo.Views.App extends Backbone.View
     return
 
   filterAll: ->
-    app.Todos.each(@filterOne, @)
+    Todos.each(@filterOne, @)
     return
 
   # Generate the attributes for a new Todo item.
@@ -68,4 +68,25 @@ class BackboneTodo.Views.App extends Backbone.View
     title: @$input.val().trim()
     order: Todos.nextOrder()
     completed: false
+    return
+
+  # If you hit return in the main input field, create new Todo model, persisting it to localStorage.
+  createOnEnter: (event) ->
+    if event.which isnt ENTER_KEY or !@$input.val().trim()
+      return
+
+    Todos.create @newAttributes()
+    @$input.val ''
+
+  # Clear all completed todo items, destroying their models.
+  clearCompleted: ->
+    _.invoke(Todos.completed(), 'destroy')
+    return false
+
+  toggleAllComplete: ->
+    completed = @allCheckbox.checked
+
+    Todos.each (todo) ->
+      todo.save 'completed': completed
+      return
     return
