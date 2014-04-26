@@ -10,4 +10,4 @@ class BackboneTodo.Models.Todo extends Backbone.Model
   toggle: ->
     @save
       completed: !@get 'completed'
-  return
+    return
