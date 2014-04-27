@@ -1,6 +1,6 @@
 'use strict'
 
-class BackboneTodo.Views.App extends Backbone.View
+@app.AppView = Backbone.View.extend
 
   statsTemplate: JST['app/scripts/templates/stats.ejs']
 
@@ -12,33 +12,41 @@ class BackboneTodo.Views.App extends Backbone.View
     'click #toggle-all': 'toggleAllComplete'
 
   initialize: () ->
-    @input = @$('#new-todo')
     @allCheckbox = @$('#toggle-all')[0]
+    @$input = @$('#new-todo')
+    @$footer = @$('footer')
+    @$main = $('#main')
 
-    @listenTo(Todos, 'add', @addOne)
-    @listenTo(Todos, 'reset', @addAll)
-    @listenTo(Todos, 'change:completed', @filterOne)
-    @listenTo(Todos, 'filter', @filterAll)
-    @listenTo(Todos, 'all', @render)
+    @listenTo(app.Todos, 'add', @addOne)
+    @listenTo(app.Todos, 'reset', @addAll)
+    @listenTo(app.Todos, 'change:completed', @filterOne)
+    @listenTo(app.Todos, 'filter', @filterAll)
+    @listenTo(app.Todos, 'all', @render)
 
-    @footer = @$('footer')
-    @main = $('#main')
 
     # A TodoList object
-    Todos.fetch()
+    app.Todos.fetch()
     return
 
   render: () ->
-    done = Todos.done().length
-    remaining = Todos.remaining().length
+    completed = app.Todos.completed().length
+    remaining = app.Todos.remaining().length
 
-    if Todos.length
-      @main.show()
-      @footer.show()
-      @footer.html(@statsTemplate({done: done, remaining: remaining}))
+    if app.Todos.length
+      @$main.show()
+      @$footer.show()
+
+      @$footer.html @statsTemplate
+        completed: completed
+        remaining: remaining
+
+      @$('#filters li a')
+        .removeClass('selected')
+        .filter('[href="#/' + ( app.TodoFilter || '' ) + '"]')
+        .addClass('selected')
     else
-      @main.hide()
-      @footer.hide()
+      @$main.hide()
+      @$footer.hide()
 
     @allCheckbox.checked = !remaining
 
@@ -49,10 +57,10 @@ class BackboneTodo.Views.App extends Backbone.View
     $('#todo-list').append( view.render().el )
     return
 
-  # Add all items in the **Todos** collection at once.
+  # Add all items in the **app.Todos** collection at once.
   addAll: ->
     @$('#todo-list').html('')
-    Todos.each(@addOne, @)
+    app.Todos.each(@addOne, @)
     return
 
   filterOne: (todo) ->
@@ -60,13 +68,13 @@ class BackboneTodo.Views.App extends Backbone.View
     return
 
   filterAll: ->
-    Todos.each(@filterOne, @)
+    app.Todos.each(@filterOne, @)
     return
 
   # Generate the attributes for a new Todo item.
   newAttributes: ->
     title: @$input.val().trim()
-    order: Todos.nextOrder()
+    order: app.Todos.nextOrder()
     completed: false
     return
 
@@ -75,18 +83,18 @@ class BackboneTodo.Views.App extends Backbone.View
     if event.which isnt ENTER_KEY or !@$input.val().trim()
       return
 
-    Todos.create @newAttributes()
+    app.Todos.create @newAttributes()
     @$input.val ''
 
   # Clear all completed todo items, destroying their models.
   clearCompleted: ->
-    _.invoke(Todos.completed(), 'destroy')
+    _.invoke(app.Todos.completed(), 'destroy')
     return false
 
   toggleAllComplete: ->
     completed = @allCheckbox.checked
 
-    Todos.each (todo) ->
+    app.Todos.each (todo) ->
       todo.save 'completed': completed
       return
     return

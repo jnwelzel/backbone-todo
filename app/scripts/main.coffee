@@ -1,12 +1,7 @@
-window.BackboneTodo =
-  Models: {}
-  Collections: {}
-  Views: {}
-  Routers: {}
-  init: ->
-    'use strict'
-    console.log 'Hello from Backbone!'
-    Todos = new BackboneTodo.Collections.TodoList()
+@app = {}
+ENTER_KEY = 13
+
 $ ->
   'use strict'
-  BackboneTodo.init();
+  console.log 'Hello from Backbone!'
+  new app.AppView()

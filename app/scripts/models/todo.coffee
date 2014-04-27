@@ -1,6 +1,6 @@
 'use strict';
 
-class BackboneTodo.Models.Todo extends Backbone.Model
+@app.Todo = Backbone.Model.extend
 
   defaults:
     'completed': false

@@ -1,16 +1,15 @@
-class BackboneTodo.Collections.TodoList extends Backbone.Collection
+TodoList = Backbone.Collection.extend
 
-  model: BackboneTodo.Models.Todo
+  model: app.Todo
 
   localStorage: new Backbone.LocalStorage('backbone-todos')
 
   completed: ->
-    @where completed: true
-    return
+    return @filter (todo) ->
+      return todo.get('completed')
 
   remaining: ->
-    @where completed: false
-    return
+    @without.apply @, @completed()
 
   nextOrder: ->
     if !@length
@@ -20,3 +19,5 @@ class BackboneTodo.Collections.TodoList extends Backbone.Collection
   # Todos are sorted by their original insertion order.
   comparator: (todo) ->
     todo.get 'order'
+
+@app.Todos = new TodoList()

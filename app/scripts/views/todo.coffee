@@ -1,4 +1,4 @@
-class BackboneTodo.Views.Todo extends Backbone.View
+@app.TodoView = Backbone.View.extend
 
   template: JST['app/scripts/templates/todo.ejs']
 
