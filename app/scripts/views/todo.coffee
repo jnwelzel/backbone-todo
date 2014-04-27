@@ -4,6 +4,8 @@
 
   tagName: 'li'
 
+  className: 'col-md-12'
+
   events:
     'click .toggle'   : 'toggleDone'
     'dblclick .view'  : 'edit'
@@ -18,17 +20,16 @@
 
   render: ->
     @$el.html @template(@model.toJSON())
-    @$el.toggleClass 'done', @get 'done'
-    @input = @$ '.edit'
+    @$input = @$ '.edit'
     @
 
   edit: ->
     @$el.addClass 'editing'
-    @input.focus()
+    @$input.focus()
     return
 
   close: ->
-    value = @input.val()
+    value = @$input.val()
     if !value
       @clear()
     else
@@ -37,7 +38,7 @@
     return
 
   updateOnEnter: (e) ->
-    close() if e.keyCode is 13
+    close() if e.keyCode is app.ENTER_KEY
     return
 
   clear: ->

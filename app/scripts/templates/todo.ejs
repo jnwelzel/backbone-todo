@@ -1,6 +1,9 @@
-<div class="view">
+<div class="view col-md-8 col-md-offset-4">
   <input class="toggle" type="checkbox" <%= completed ? 'checked' : '' %>>
   <label><%= title %></label>
-  <button class="destroy"></button>
+  <a class="destroy label label-danger" title="Delete" href="#">x</a>
 </div>
-<input class="edit" value="<%= title %>">
+
+<div class="form-group col-md-4 col-md-offset-4">
+  <input class="edit form-control" value="<%= title %>">
+</div>

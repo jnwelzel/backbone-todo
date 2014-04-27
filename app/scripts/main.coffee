@@ -1,7 +1,7 @@
 @app = {}
-ENTER_KEY = 13
+@app.ENTER_KEY = 13
 
 $ ->
   'use strict'
-  console.log 'Hello from Backbone!'
+  console.log 'Surprise motherfucker!'
   new app.AppView()

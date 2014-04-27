@@ -53,7 +53,7 @@
   # Add a single todo item to the list by creating a view for it, and
   # appending its element to the `<ul>`.
   addOne: (todo) ->
-    view = new BackboneTodo.Views.Todo({ model: todo })
+    view = new app.TodoView({ model: todo })
     $('#todo-list').append( view.render().el )
     return
 
@@ -76,11 +76,10 @@
     title: @$input.val().trim()
     order: app.Todos.nextOrder()
     completed: false
-    return
 
   # If you hit return in the main input field, create new Todo model, persisting it to localStorage.
   createOnEnter: (event) ->
-    if event.which isnt ENTER_KEY or !@$input.val().trim()
+    if event.which isnt app.ENTER_KEY or !@$input.val().trim()
       return
 
     app.Todos.create @newAttributes()
