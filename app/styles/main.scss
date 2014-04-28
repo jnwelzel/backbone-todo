@@ -1,7 +1,37 @@
 $icon-font-path: "/bower_components/sass-bootstrap/fonts/";
 
+$gridColumnWidth: 22px;
+$gridGutterWidth: 5px;
+
 @import 'sass-bootstrap/lib/bootstrap';
 
 header {
   margin-top: 40px;
+}
+
+#todo-list .editing .display,
+#todo-list .edit {
+  display: none;
+}
+
+#todo-list .editing .edit {
+  display: block;
+}
+
+#todo-list .done {
+  text-decoration: line-through;
+  color: #777777;
+}
+
+.selected {
+  font-weight: bold;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.hint {
+  color: #AAA6A6;
+  font-size: 0.9em;
 }

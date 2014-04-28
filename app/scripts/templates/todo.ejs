@@ -1,6 +1,6 @@
 <div class="view col-md-8 col-md-offset-4">
   <input class="toggle" type="checkbox" <%= completed ? 'checked' : '' %>>
-  <label><%= title %></label>
+  <label class="<%= completed ? 'done' : '' %>"><%= title %></label>
   <a class="destroy label label-danger" title="Delete" href="#">x</a>
 </div>
 

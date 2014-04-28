@@ -1,5 +1,6 @@
 @app = {}
 @app.ENTER_KEY = 13
+@app.TodoFilter = ''
 
 $ ->
   'use strict'
